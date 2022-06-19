@@ -126,7 +126,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </TextArea>
-                              <Button fx:id="task_button" alignment="CENTER" contentDisplay="TOP" layoutX="14.0" layoutY="297.0" mnemonicParsing="false" onAction="#Task_button_pressed" style="-fx-background-color: #3C99DC; -fx-border-radius: 10px;" text="Add Task" textAlignment="CENTER">
+                              <Button id="button-style" fx:id="task_button" alignment="CENTER" contentDisplay="TOP" layoutX="14.0" layoutY="297.0" mnemonicParsing="false" onAction="#Task_button_pressed" text="Add Task" textAlignment="CENTER">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

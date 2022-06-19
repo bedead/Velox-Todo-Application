@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,7 @@ public class App extends Application{
     public void start(Stage stage) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("FXML/MainWindow.fxml"));
         
+
         scene = new Scene(root);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
