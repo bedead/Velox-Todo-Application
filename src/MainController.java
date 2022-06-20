@@ -21,7 +21,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import JsonData.Todo;
-import JsonData.gson;
 
 public class MainController {
     @FXML
