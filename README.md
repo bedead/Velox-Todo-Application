@@ -2,8 +2,8 @@
 
 Made Using JavaFX and Scene Builder
 
-- 'fxml': folder for all the fxml files required
-- 'images': folder with external imgs for application
+- `FXML`: folder for all the fxml files required
+- `IMAGES`: folder with external imgs for application
 
 Images are from Icon8 Website
 
