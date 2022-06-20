@@ -18,6 +18,8 @@ public class App extends Application{
         
 
         scene = new Scene(root);
+        String stylesheet = getClass().getResource("style.css").toExternalForm();
+        scene.getStylesheets().add(stylesheet);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.centerOnScreen();

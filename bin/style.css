@@ -1,4 +1,9 @@
 #button-style{
     -fx-background-color:  #3C99DC;
     -fx-border-radius: 30px;
+    -fx-align-self: center;
+}
+#labels{
+    -fx-text-align:center;
+    -fx-font-size:14px;
 }

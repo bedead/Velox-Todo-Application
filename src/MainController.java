@@ -1,7 +1,7 @@
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +14,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import JsonData.Todo;
+import JsonData.gson;
 
 public class MainController {
     @FXML
@@ -31,28 +39,7 @@ public class MainController {
     private Accordion working_accordion;
     @FXML
     private Accordion done_accordion;
-    private TitledPane working_titledPane;
-    private TitledPane done_titledPane;
 
-
-    public void initialize(){       
-        working_titledPane = new TitledPane();
-        VBox working_VBox = new VBox();
-        working_VBox.setSpacing(10);
-        Label todo_title;
-        HBox working_HBox = new HBox();
-        Button Edit = new Button("Edit");
-        Button Delete;
-        Button Done;
-        Edit.setId("button-style");
-
-        working_HBox.getChildren().addAll(Edit);
-
-        working_VBox.getChildren().add(todo_title = new Label());
-        working_VBox.getChildren().add(working_HBox);
-        todo_title.setStyle("-fx-text-align:center;-fx-font-size:14px");
-
-    }
     @FXML
     void Platform_exit(MouseEvent event) {
         Platform.exit();
@@ -68,8 +55,52 @@ public class MainController {
     }
 
     @FXML
-    void Task_button_pressed(ActionEvent event){
-        
-    }
+    void Task_button_pressed(ActionEvent event) throws IOException{
+        // Data writing process
 
+
+        // Gui process
+        TitledPane titledPane = new TitledPane();
+        VBox working_VBox = new VBox();
+        working_VBox.setSpacing(10);
+        Label todo_desc = new Label(task_description_text.getText());
+        todo_desc.setId("labels");
+
+        HBox working_HBox = new HBox();
+        Button Edit = new Button("Edit");
+        Button Remove = new Button("Remove");
+        Button Done = new Button("Done");
+        Edit.setId("button-style");
+        Remove.setId("button-style");
+        Done.setId("button-style");
+
+        working_HBox.getChildren().addAll(Edit,Remove,Done);
+        working_HBox.setSpacing(20);
+
+        working_VBox.getChildren().add(todo_desc);
+        working_VBox.getChildren().add(working_HBox);
+
+        titledPane.setText(task_title_text.getText());
+        titledPane.setContent(working_VBox);
+        working_accordion.getPanes().add(titledPane);
+
+        Edit.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event){
+                // do something
+            }
+        });
+        Done.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event){
+                working_accordion.getPanes().remove(titledPane);
+                working_VBox.getChildren().remove(working_HBox);
+
+                done_accordion.getPanes().add(titledPane);
+            }
+        });
+        Remove.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event){
+                working_accordion.getPanes().remove(titledPane);
+            }
+        });       
+    }
 }
