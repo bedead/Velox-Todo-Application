@@ -10,17 +10,20 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import netscape.javascript.JSObject;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
-import JsonData.Todo;
 
 public class MainController {
     @FXML
@@ -38,17 +41,37 @@ public class MainController {
     private Accordion working_accordion;
     @FXML
     private Accordion done_accordion;
+    public static JSONArray jArray = new JSONArray();
 
+    public void initialize(){
+        // Todo Data Reading process
+        File todoFile = new File("todo.json");
+        if(todoFile.exists()){
+            JSONParser parser = new JSONParser();
+            try{
+                Object obj = parser.parse(new FileReader("todo.json"));
+                
+                JSONArray array = (JSONArray) obj;
+                jArray = array;
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+        // Test printing all the todos of json file
+        for(Object a: jArray){
+            System.out.println(a);
+        }
+
+        // Making TitledPane for displaying all todo's
+
+    }
     @FXML
-    void Platform_exit(MouseEvent event) {
+    void Platform_exit(ActionEvent event) {
         Platform.exit();
     }
     @FXML
-    void Platform_file_exit(ActionEvent event) {
-        Platform.exit();
-    }
-    @FXML
-    void Platform_minimize(MouseEvent event){
+    void Platform_minimize(ActionEvent event){
         Stage stage = (Stage) minimize_button.getScene().getWindow();
         stage.setIconified(true);
     }
@@ -56,7 +79,21 @@ public class MainController {
     @FXML
     void Task_button_pressed(ActionEvent event) throws IOException{
         // Data writing process
+        JSONObject todo = new JSONObject();
+        todo.put("Title", task_title_text.getText());
+        todo.put("Description", task_description_text.getText());
 
+        jArray.add(todo);
+
+        try{
+            FileWriter writer = new FileWriter("todo.json");
+            writer.write(jArray.toJSONString());
+
+            writer.flush();
+            writer.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
         // Gui process
         TitledPane titledPane = new TitledPane();

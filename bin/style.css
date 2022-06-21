@@ -1,7 +1,10 @@
-#button-style{
+#button-style,#top-btn{
     -fx-background-color:  #3C99DC;
     -fx-border-radius: 30px;
     -fx-align-self: center;
+}
+#top-btn:hover{
+    -fx-background-color: rgb(82, 82, 255);
 }
 #labels{
     -fx-text-align:center;

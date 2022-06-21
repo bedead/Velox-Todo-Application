@@ -63,16 +63,24 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <ImageView fx:id="minimize_button" fitHeight="25.0" fitWidth="25.0" layoutX="874.0" layoutY="3.0" onMouseClicked="#Platform_minimize" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../IMAGES/icons8-minimize-window-30.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="906.0" layoutY="3.0" onMouseClicked="#Platform_exit" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../IMAGES/icons8-close-window-30.png" />
-               </image>
-            </ImageView>
+            <Button id="top-btn" contentDisplay="CENTER" layoutX="891.0" mnemonicParsing="false" onAction="#Platform_exit" prefHeight="34.0" prefWidth="34.0">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../IMAGES/icons8-close-window-30.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="top-btn" layoutX="850.0" mnemonicParsing="false" onAction="#Platform_minimize" prefHeight="34.0" prefWidth="34.0">
+               <graphic>
+                  <ImageView fx:id="minimize_button" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../IMAGES/icons8-minimize-window-30.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </Pane>
     <MenuBar prefHeight="25.0" prefWidth="900.0" VBox.vgrow="NEVER">
@@ -86,7 +94,7 @@
                   <MenuItem mnemonicParsing="false" text="Save" />
             <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" text="Clear All &amp; Quit" />
-            <MenuItem mnemonicParsing="false" onAction="#Platform_file_exit" text="Quit" />
+            <MenuItem mnemonicParsing="false" onAction="#Platform_exit" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
