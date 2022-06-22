@@ -13,7 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import netscape.javascript.JSObject;
 
 import java.io.File;
 import java.io.FileReader;
@@ -26,6 +25,7 @@ import org.json.simple.parser.JSONParser;
 
 
 public class MainController {
+    // instance variables
     @FXML
     private ImageView minimize_button;
 
@@ -43,10 +43,12 @@ public class MainController {
     private Accordion done_accordion;
     public static JSONArray jArray = new JSONArray();
 
+    // default method which get run on software startup
     public void initialize(){
         // Todo Data Reading process
         File todoFile = new File("todo.json");
         if(todoFile.exists()){
+            // json parser
             JSONParser parser = new JSONParser();
             try{
                 Object obj = parser.parse(new FileReader("todo.json"));
@@ -56,15 +58,95 @@ public class MainController {
             }catch(Exception e){
                 e.printStackTrace();
             }
+            
+            // Making TitledPane for displaying all todo's
+            for (int a=0;a<jArray.size();a++){
+                JSONObject jsonObject = (JSONObject) jArray.get(a);
+                if((boolean) jsonObject.get("In").equals("working")){
+                    TitledPane titledPane = new TitledPane();
+                    VBox working_VBox = new VBox();
+                    working_VBox.setSpacing(10);
+                    Label todo_desc = new Label((String) jsonObject.get("Description"));
+                    todo_desc.setId("labels");
+
+                    HBox working_HBox = new HBox();
+                    Button Edit = new Button("Edit");
+                    Button Remove = new Button("Remove");
+                    Button Done = new Button("Done");
+                    Edit.setId("button-style");
+                    Remove.setId("button-style");
+                    Done.setId("button-style");
+
+                    working_HBox.getChildren().addAll(Edit,Remove,Done);
+                    working_HBox.setSpacing(20);
+
+                    working_VBox.getChildren().add(todo_desc);
+                    working_VBox.getChildren().add(working_HBox);
+
+                    titledPane.setText((String) jsonObject.get("Title"));
+                    titledPane.setContent(working_VBox);
+                    working_accordion.getPanes().add(titledPane);
+
+                    Edit.setOnAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent event){
+                            // do something
+                        }
+                    });
+                    Done.setOnAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent event){
+                            // DATA
+                            jsonObject.put("In", "done");
+                            try{
+                                FileWriter writer = new FileWriter("todo.json");
+                                writer.write(jArray.toJSONString());
+                    
+                                writer.flush();
+                                writer.close();
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
+                            // GUI
+                            working_accordion.getPanes().remove(titledPane);
+                            working_VBox.getChildren().remove(working_HBox);
+            
+                            done_accordion.getPanes().add(titledPane);
+                        }
+                    });
+                    Remove.setOnAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent event){
+                            // DATA
+                            jArray.remove(jsonObject);
+                            try{
+                                FileWriter writer = new FileWriter("todo.json");
+                                writer.write(jArray.toJSONString());
+                    
+                                writer.flush();
+                                writer.close();
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
+                            // GUI
+                            working_accordion.getPanes().remove(titledPane);
+                        }
+                    }); 
+                }else if((Boolean) jsonObject.get("In").equals("done")){
+                    TitledPane titledPane = new TitledPane();
+                    VBox working_VBox = new VBox();
+                    working_VBox.setSpacing(10);
+                    Label todo_desc = new Label((String) jsonObject.get("Description"));
+                    todo_desc.setId("labels");
+
+                    working_VBox.getChildren().add(todo_desc);
+
+                    titledPane.setText((String) jsonObject.get("Title"));
+                    titledPane.setContent(working_VBox);
+
+                    done_accordion.getPanes().add(titledPane);
+                }
+                
+            }
 
         }
-        // Test printing all the todos of json file
-        for(Object a: jArray){
-            System.out.println(a);
-        }
-
-        // Making TitledPane for displaying all todo's
-
     }
     @FXML
     void Platform_exit(ActionEvent event) {
@@ -82,6 +164,7 @@ public class MainController {
         JSONObject todo = new JSONObject();
         todo.put("Title", task_title_text.getText());
         todo.put("Description", task_description_text.getText());
+        todo.put("In", "working");
 
         jArray.add(todo);
 
@@ -127,6 +210,18 @@ public class MainController {
         });
         Done.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event){
+                // DATA
+                todo.put("In", "done");
+                try{
+                    FileWriter writer = new FileWriter("todo.json");
+                    writer.write(jArray.toJSONString());
+        
+                    writer.flush();
+                    writer.close();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                // GUI
                 working_accordion.getPanes().remove(titledPane);
                 working_VBox.getChildren().remove(working_HBox);
 
@@ -135,6 +230,18 @@ public class MainController {
         });
         Remove.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event){
+                // DATA
+                jArray.remove(todo);
+                try{
+                    FileWriter writer = new FileWriter("todo.json");
+                    writer.write(jArray.toJSONString());
+        
+                    writer.flush();
+                    writer.close();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                // GUI
                 working_accordion.getPanes().remove(titledPane);
             }
         });       
