@@ -1,0 +1,4 @@
+top-panel:  #3C99DC
+second-panel:  #0077b6
+top-btn: #3C99DC
+top-btn:hover: #0077b6

@@ -5,25 +5,25 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="519.0" prefWidth="932.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="519.0" prefWidth="932.0" style="-fx-background-color: #0077b6;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <Pane prefHeight="60.0" prefWidth="932.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="60.0" prefWidth="932.0" style="-fx-background-color: #0077b6;" BorderPane.alignment="CENTER" />
    </top>
    <bottom>
-      <Pane prefHeight="60.0" prefWidth="932.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="60.0" prefWidth="932.0" style="-fx-background-color: #0077b6;" BorderPane.alignment="CENTER" />
    </bottom>
    <left>
-      <Pane prefHeight="399.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="399.0" prefWidth="100.0" style="-fx-background-color: #0077b6;" BorderPane.alignment="CENTER" />
    </left>
    <right>
-      <Pane prefHeight="399.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="399.0" prefWidth="100.0" style="-fx-background-color: #0077b6;" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <Pane prefHeight="399.0" prefWidth="732.0" style="-fx-border-color: #2287cf; -fx-border-radius: 10px; -fx-border-width: 4px;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="399.0" prefWidth="732.0" style="-fx-background-radius: 20px;" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="399.0" prefWidth="366.0">
+            <Pane prefHeight="399.0" prefWidth="366.0" style="-fx-background-color: white; -fx-background-radius: 20 0 0 20;">
                <children>
-                  <Label layoutX="58.0" layoutY="41.0" prefHeight="17.0" prefWidth="80.0" text="VELOX" textFill="#006bff">
+                  <Label layoutX="58.0" layoutY="41.0" prefHeight="17.0" prefWidth="80.0" text="VELOX" textFill="#0096c7">
                      <font>
                         <Font name="System Italic" size="14.0" />
                      </font>
@@ -33,14 +33,37 @@
                         <Font name="System Bold" size="30.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="58.0" layoutY="106.0" prefHeight="242.0" prefWidth="250.0" text="I am Satyam Mishra." wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="58.0" layoutY="106.0" prefHeight="200.0" prefWidth="250.0" text="I am Satyam Mishra. I am a Collage Student at Vellore Institute of Technology (Amaravathi). This is a Simple Gui Todo/Task manager Software developed using Java. This Application uses JSON file for it's Data Management." wrapText="true">
                      <font>
-                        <Font name="System Italic" size="14.0" />
+                        <Font name="System Italic" size="16.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="366.0" prefHeight="399.0" prefWidth="366.0" />
+            <Pane layoutX="366.0" prefHeight="399.0" prefWidth="366.0" style="-fx-background-color: gray; -fx-background-radius: 0 20 20 0;">
+               <children>
+                  <Label layoutX="35.0" layoutY="62.0" prefHeight="45.0" prefWidth="84.0" text="Github" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="35.0" layoutY="107.0" prefHeight="25.0" prefWidth="263.0" text="https://github.com/bedead" textFill="WHITE">
+                     <font>
+                        <Font name="System Italic" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="35.0" layoutY="132.0" prefHeight="45.0" prefWidth="84.0" text="Mail" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="35.0" layoutY="177.0" prefHeight="25.0" prefWidth="263.0" text="satyam.work.onlygmail.com" textFill="WHITE">
+                     <font>
+                        <Font name="System Italic" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </center>

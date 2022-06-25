@@ -9,10 +9,19 @@
     -fx-text-alignment: center;
     -fx-text-fill: white;
 }
+#button-style{
+    -fx-background-radius: 10px;
+}
 #top-btn:hover{
-    -fx-background-color: #2287cf;
+    -fx-background-color: #0077b6;
 }
 #labels{
     -fx-text-align:center;
     -fx-font-size:14px;
+}
+.alltabs{
+    -fx-background-radius: 10px 10px 0 0;
+    -fx-background-color:  #3C99DC;
+    -fx-text-fill: white;
+    -fx-border-radius: none;
 }

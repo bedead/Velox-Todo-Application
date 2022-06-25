@@ -21,7 +21,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.http.WebSocketHandshakeException;
 import java.util.function.Predicate;
 
 import org.json.simple.JSONArray;
@@ -99,6 +98,7 @@ public class MainController {
                     Edit.setOnAction(new EventHandler<ActionEvent>() {
                         public void handle(ActionEvent event){
                             // do something
+                            //add bottom_status
                         }
                     });
                     Done.setOnAction(new EventHandler<ActionEvent>() {
@@ -119,6 +119,7 @@ public class MainController {
                             working_VBox.getChildren().remove(working_HBox);
             
                             done_accordion.getPanes().add(titledPane);
+                            bottom_status.setText("Moved Task to Completed.");
                         }
                     });
                     Remove.setOnAction(new EventHandler<ActionEvent>() {
@@ -136,6 +137,7 @@ public class MainController {
                             }
                             // GUI
                             working_accordion.getPanes().remove(titledPane);
+                            bottom_status.setText("Deleted Task.");
                         }
                     }); 
                 }else if((Boolean) jsonObject.get("In").toString().equals("done")){
@@ -157,91 +159,100 @@ public class MainController {
     }
     @FXML
     void Task_button_pressed(ActionEvent event) throws IOException{
-        // Data writing process
-        JSONObject todo = new JSONObject();
-        todo.put("Title", task_title_text.getText());
-        todo.put("Description", task_description_text.getText());
-        todo.put("In", "working");
+        if(task_title_text.getText()=="" && task_description_text.getText()==""){
 
-        jArray.add(todo);
+        }else{
+            // Data writing process
+            JSONObject todo = new JSONObject();
+            todo.put("Title", task_title_text.getText());
+            todo.put("Description", task_description_text.getText());
+            todo.put("In", "working");
 
-        try{
-            FileWriter writer = new FileWriter("todo.json");
-            writer.write(jArray.toJSONString());
+            jArray.add(todo);
+    
+            try{
+                FileWriter writer = new FileWriter("todo.json");
+                writer.write(jArray.toJSONString());
 
-            writer.flush();
-            writer.close();
-        }catch(Exception e){
-            e.printStackTrace();
+                writer.flush();
+                writer.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+            // Gui process
+            TitledPane titledPane = new TitledPane();
+            VBox working_VBox = new VBox();
+            working_VBox.setSpacing(10);
+            Label todo_desc = new Label(task_description_text.getText());
+            todo_desc.setId("labels");
+
+            HBox working_HBox = new HBox();
+            Button Edit = new Button("Edit");
+            Button Remove = new Button("Remove");
+            Button Done = new Button("Done");
+            Edit.setId("button-style");
+            Remove.setId("button-style");
+            Done.setId("button-style");
+
+            working_HBox.getChildren().addAll(Edit,Remove,Done);
+            working_HBox.setSpacing(20);
+
+            working_VBox.getChildren().add(todo_desc);
+            working_VBox.getChildren().add(working_HBox);
+
+            titledPane.setText(task_title_text.getText());
+            titledPane.setContent(working_VBox);
+            working_accordion.getPanes().add(titledPane);
+
+            Edit.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event){
+                    // do something
+                    //add bottom_status
+                    
+                }
+            });
+            Done.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event){
+                    // DATA
+                    todo.put("In", "done");
+                    try{
+                        FileWriter writer = new FileWriter("todo.json");
+                        writer.write(jArray.toJSONString());
+            
+                        writer.flush();
+                        writer.close();
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                    // GUI
+                    working_accordion.getPanes().remove(titledPane);
+                    working_VBox.getChildren().remove(working_HBox);
+
+                    done_accordion.getPanes().add(titledPane);
+                    bottom_status.setText("Moved Task to Completed.");
+                }
+            });
+            Remove.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event){
+                    // DATA
+                    jArray.remove(todo);
+                    try{
+                        FileWriter writer = new FileWriter("todo.json");
+                        writer.write(jArray.toJSONString());
+            
+                        writer.flush();
+                        writer.close();
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                    // GUI
+                    working_accordion.getPanes().remove(titledPane);
+                    bottom_status.setText("Deleted Task.");
+                }
+            });
         }
-
-        // Gui process
-        TitledPane titledPane = new TitledPane();
-        VBox working_VBox = new VBox();
-        working_VBox.setSpacing(10);
-        Label todo_desc = new Label(task_description_text.getText());
-        todo_desc.setId("labels");
-
-        HBox working_HBox = new HBox();
-        Button Edit = new Button("Edit");
-        Button Remove = new Button("Remove");
-        Button Done = new Button("Done");
-        Edit.setId("button-style");
-        Remove.setId("button-style");
-        Done.setId("button-style");
-
-        working_HBox.getChildren().addAll(Edit,Remove,Done);
-        working_HBox.setSpacing(20);
-
-        working_VBox.getChildren().add(todo_desc);
-        working_VBox.getChildren().add(working_HBox);
-
-        titledPane.setText(task_title_text.getText());
-        titledPane.setContent(working_VBox);
-        working_accordion.getPanes().add(titledPane);
-
-        Edit.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event){
-                // do something
-            }
-        });
-        Done.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event){
-                // DATA
-                todo.put("In", "done");
-                try{
-                    FileWriter writer = new FileWriter("todo.json");
-                    writer.write(jArray.toJSONString());
-        
-                    writer.flush();
-                    writer.close();
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-                // GUI
-                working_accordion.getPanes().remove(titledPane);
-                working_VBox.getChildren().remove(working_HBox);
-
-                done_accordion.getPanes().add(titledPane);
-            }
-        });
-        Remove.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event){
-                // DATA
-                jArray.remove(todo);
-                try{
-                    FileWriter writer = new FileWriter("todo.json");
-                    writer.write(jArray.toJSONString());
-        
-                    writer.flush();
-                    writer.close();
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-                // GUI
-                working_accordion.getPanes().remove(titledPane);
-            }
-        });       
+        bottom_status.setText("Added Task to Working.");    
     }
     
     @FXML
@@ -260,6 +271,7 @@ public class MainController {
         }
         // Gui
         done_accordion.getPanes().clear();
+        bottom_status.setText("Deleted all Completed Tasks.");
     }
     @FXML
     void Delete_working_pressed(ActionEvent event){
@@ -277,6 +289,7 @@ public class MainController {
         }
         // Gui
         working_accordion.getPanes().clear();
+        bottom_status.setText("Deleted all Working Tasks.");
     }
     @FXML
     void Platform_exit(ActionEvent event) {
@@ -288,18 +301,13 @@ public class MainController {
         stage.setIconified(true);
     }
     @FXML
-    void Appeartance_set_pressed(ActionEvent event){
-        // do something
-    }
-    @FXML
-    void Reset_to_default(ActionEvent event){
-        // do something
-    }
-    @FXML
     void About_pressed(ActionEvent event) throws IOException{
         aboutTab = new Tab("About");
+        aboutTab.getStyleClass().add("alltabs");
         tab_pane.getTabs().add(aboutTab);
         aboutTab.setContent((Node)FXMLLoader.load(this.getClass().getResource("FXML/AboutWindow.fxml")));
         tab_pane.getSelectionModel().select(aboutTab);
+
+        bottom_status.setText("Opend About Tab");
     }
 }
