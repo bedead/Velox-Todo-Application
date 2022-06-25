@@ -54,16 +54,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="932.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+<VBox id="main_pane" prefHeight="600.0" prefWidth="932.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
   <children>
-      <Pane prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #3C99DC;">
+      <Pane id="top-panel" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #3C99DC;">
          <children>
-            <Label layoutX="14.0" layoutY="-3.0" prefHeight="28.0" prefWidth="121.0" text="Velox Todo">
+            <Label layoutX="14.0" prefHeight="35.0" prefWidth="163.0" text="Velox Todo" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button id="top-btn" contentDisplay="CENTER" layoutX="891.0" mnemonicParsing="false" onAction="#Platform_exit" prefHeight="34.0" prefWidth="34.0">
+            <Button id="top-btn" contentDisplay="CENTER" layoutX="891.0" layoutY="1.0" mnemonicParsing="false" onAction="#Platform_exit" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 0 15 0 0;">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -72,7 +72,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="top-btn" layoutX="850.0" mnemonicParsing="false" onAction="#Platform_minimize" prefHeight="34.0" prefWidth="34.0">
+            <Button id="top-btn" layoutX="850.0" layoutY="1.0" mnemonicParsing="false" onAction="#Platform_minimize" prefHeight="34.0" prefWidth="34.0">
                <graphic>
                   <ImageView fx:id="minimize_button" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -83,35 +83,31 @@
             </Button>
          </children>
       </Pane>
-    <MenuBar prefHeight="25.0" prefWidth="900.0" VBox.vgrow="NEVER">
+    <MenuBar prefHeight="25.0" prefWidth="900.0" style="-fx-background-color: #2287cf;" VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="Clear All" />
-                  <MenuItem mnemonicParsing="false" text="CLear Working Area" />
-                  <MenuItem mnemonicParsing="false" text="CLear Done Area" />
+                  <MenuItem mnemonicParsing="false" onAction="#Delete_completed_pressed" text="Delete all Completed Tasks" />
+                  <MenuItem mnemonicParsing="false" onAction="#Delete_working_pressed" text="Delete all Working Tasks" />
             <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Save" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Clear All &amp; Quit" />
             <MenuItem mnemonicParsing="false" onAction="#Platform_exit" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem mnemonicParsing="false" text="Appearance" />
+            <MenuItem mnemonicParsing="false" onAction="#Appeartance_set_pressed" text="Appearance" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Clear Software Data" />
+                  <MenuItem mnemonicParsing="false" onAction="#Reset_to_default" text="Reset To Default" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About" />
+            <MenuItem mnemonicParsing="false" onAction="#About_pressed" text="About" />
           </items>
         </Menu>
       </menus>
     </MenuBar>
-      <TabPane fx:id="tab_pane" prefHeight="520.0" prefWidth="1045.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tab_pane" prefHeight="520.0" prefWidth="1045.0">
         <tabs>
           <Tab text="Project 1">
                <content>
@@ -173,9 +169,14 @@
       </TabPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS" />
-        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label maxWidth="-1.0" text="Right status" HBox.hgrow="NEVER" />
+        <Pane prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #3C99DC; -fx-background-radius: 0 0 10 10;" HBox.hgrow="ALWAYS">
+               <children>
+              <Label fx:id="bottom_status" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-1.0" prefHeight="17.0" prefWidth="926.0" text="Status" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Label>
+               </children></Pane>
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

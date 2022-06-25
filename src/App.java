@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -16,11 +17,16 @@ public class App extends Application{
     public void start(Stage stage) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("FXML/MainWindow.fxml"));
         
-
-        scene = new Scene(root);
+        // Root scene 
+        scene = new Scene(root,932,600);
+        scene.setFill(Color.TRANSPARENT);
+        
+        // setting stylesheet for pane
         String stylesheet = getClass().getResource("style.css").toExternalForm();
         scene.getStylesheets().add(stylesheet);
-        stage.initStyle(StageStyle.UNDECORATED);
+        
+        // settings for window
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.setTitle("Velox Todo");

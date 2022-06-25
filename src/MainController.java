@@ -2,9 +2,12 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -18,6 +21,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.http.WebSocketHandshakeException;
+import java.util.function.Predicate;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -41,10 +46,14 @@ public class MainController {
     private Accordion working_accordion;
     @FXML
     private Accordion done_accordion;
+    @FXML
+    private Label bottom_status;
+    // Local Variablr
     public static JSONArray jArray = new JSONArray();
+    private Tab aboutTab;
 
     // default method which get run on software startup
-    public void initialize(){
+    public void initialize() throws IOException{
         // Todo Data Reading process
         File todoFile = new File("todo.json");
         if(todoFile.exists()){
@@ -62,7 +71,7 @@ public class MainController {
             // Making TitledPane for displaying all todo's
             for (int a=0;a<jArray.size();a++){
                 JSONObject jsonObject = (JSONObject) jArray.get(a);
-                if((boolean) jsonObject.get("In").equals("working")){
+                if((boolean) jsonObject.get("In").toString().equals("working")){
                     TitledPane titledPane = new TitledPane();
                     VBox working_VBox = new VBox();
                     working_VBox.setSpacing(10);
@@ -129,7 +138,7 @@ public class MainController {
                             working_accordion.getPanes().remove(titledPane);
                         }
                     }); 
-                }else if((Boolean) jsonObject.get("In").equals("done")){
+                }else if((Boolean) jsonObject.get("In").toString().equals("done")){
                     TitledPane titledPane = new TitledPane();
                     VBox working_VBox = new VBox();
                     working_VBox.setSpacing(10);
@@ -142,22 +151,10 @@ public class MainController {
                     titledPane.setContent(working_VBox);
 
                     done_accordion.getPanes().add(titledPane);
-                }
-                
+                }   
             }
-
-        }
+        }        
     }
-    @FXML
-    void Platform_exit(ActionEvent event) {
-        Platform.exit();
-    }
-    @FXML
-    void Platform_minimize(ActionEvent event){
-        Stage stage = (Stage) minimize_button.getScene().getWindow();
-        stage.setIconified(true);
-    }
-
     @FXML
     void Task_button_pressed(ActionEvent event) throws IOException{
         // Data writing process
@@ -245,5 +242,64 @@ public class MainController {
                 working_accordion.getPanes().remove(titledPane);
             }
         });       
+    }
+    
+    @FXML
+    void Delete_completed_pressed(ActionEvent event){
+        // Data
+        Predicate<JSONObject> pr = (JSONObject x) -> x.get("In").equals("done");
+        jArray.removeIf(pr);
+        try{
+            FileWriter writer = new FileWriter("todo.json");
+            writer.write(jArray.toJSONString());
+
+            writer.flush();
+            writer.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        // Gui
+        done_accordion.getPanes().clear();
+    }
+    @FXML
+    void Delete_working_pressed(ActionEvent event){
+        // Data
+        Predicate<JSONObject> pr = (JSONObject x) -> x.get("In").equals("working");
+        jArray.removeIf(pr);
+        try{
+            FileWriter writer = new FileWriter("todo.json");
+            writer.write(jArray.toJSONString());
+
+            writer.flush();
+            writer.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        // Gui
+        working_accordion.getPanes().clear();
+    }
+    @FXML
+    void Platform_exit(ActionEvent event) {
+        Platform.exit();
+    }
+    @FXML
+    void Platform_minimize(ActionEvent event){
+        Stage stage = (Stage) minimize_button.getScene().getWindow();
+        stage.setIconified(true);
+    }
+    @FXML
+    void Appeartance_set_pressed(ActionEvent event){
+        // do something
+    }
+    @FXML
+    void Reset_to_default(ActionEvent event){
+        // do something
+    }
+    @FXML
+    void About_pressed(ActionEvent event) throws IOException{
+        aboutTab = new Tab("About");
+        tab_pane.getTabs().add(aboutTab);
+        aboutTab.setContent((Node)FXMLLoader.load(this.getClass().getResource("FXML/AboutWindow.fxml")));
+        tab_pane.getSelectionModel().select(aboutTab);
     }
 }
