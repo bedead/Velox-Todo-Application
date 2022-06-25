@@ -6,12 +6,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -159,8 +163,16 @@ public class MainController {
     }
     @FXML
     void Task_button_pressed(ActionEvent event) throws IOException{
-        if(task_title_text.getText()=="" && task_description_text.getText()==""){
+        if(task_title_text.getText()=="" || task_description_text.getText()==""){
+            ButtonType type = new ButtonType("Ok",ButtonData.OK_DONE);
+            Dialog dialog = new Dialog<>();
+            dialog.getDialogPane().setStyle("-fx-background-color: #0077b6;-fx-text-fill:white;");
+            dialog.setTitle("Empty Text Fields");
+            dialog.getDialogPane().getButtonTypes().add(type);
+            dialog.setContentText("Title and Description can not be Empty.");
+            dialog.showAndWait();
 
+            bottom_status.setText("Dialog box Closed");
         }else{
             // Data writing process
             JSONObject todo = new JSONObject();
@@ -209,7 +221,7 @@ public class MainController {
                 public void handle(ActionEvent event){
                     // do something
                     //add bottom_status
-                    
+
                 }
             });
             Done.setOnAction(new EventHandler<ActionEvent>() {
@@ -251,8 +263,8 @@ public class MainController {
                     bottom_status.setText("Deleted Task.");
                 }
             });
+            bottom_status.setText("Added Task to Working.");    
         }
-        bottom_status.setText("Added Task to Working.");    
     }
     
     @FXML
