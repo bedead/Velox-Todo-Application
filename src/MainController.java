@@ -8,6 +8,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -19,7 +20,9 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.FileReader;
@@ -164,12 +167,17 @@ public class MainController {
     @FXML
     void Task_button_pressed(ActionEvent event) throws IOException{
         if(task_title_text.getText()=="" || task_description_text.getText()==""){
-            ButtonType type = new ButtonType("Ok",ButtonData.OK_DONE);
             Dialog dialog = new Dialog<>();
-            dialog.getDialogPane().setStyle("-fx-background-color: #0077b6;-fx-text-fill:white;");
-            dialog.setTitle("Empty Text Fields");
-            dialog.getDialogPane().getButtonTypes().add(type);
+            Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+            dialogStage.initStyle(StageStyle.TRANSPARENT);
+            dialogStage.setAlwaysOnTop(true);
+            dialogStage.centerOnScreen();
+
+            DialogPane dialogPane = dialog.getDialogPane();
             dialog.setContentText("Title and Description can not be Empty.");
+            ButtonType type = new ButtonType("Ok",ButtonData.OK_DONE);
+            dialog.getDialogPane().getButtonTypes().add(type);
+
             dialog.showAndWait();
 
             bottom_status.setText("Dialog box Closed");
@@ -221,7 +229,8 @@ public class MainController {
                 public void handle(ActionEvent event){
                     // do something
                     //add bottom_status
-
+                    TextInputDialog tInputDialog = new TextInputDialog();
+                    
                 }
             });
             Done.setOnAction(new EventHandler<ActionEvent>() {

@@ -23,7 +23,7 @@
          <children>
             <Pane prefHeight="399.0" prefWidth="366.0" style="-fx-background-color: white; -fx-background-radius: 20 0 0 20;">
                <children>
-                  <Label layoutX="58.0" layoutY="41.0" prefHeight="17.0" prefWidth="80.0" text="VELOX" textFill="#0096c7">
+                  <Label layoutX="58.0" layoutY="41.0" prefHeight="20.0" prefWidth="92.0" text="VELOX TODO" textFill="#0096c7">
                      <font>
                         <Font name="System Italic" size="14.0" />
                      </font>
@@ -40,7 +40,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="366.0" prefHeight="399.0" prefWidth="366.0" style="-fx-background-color: gray; -fx-background-radius: 0 20 20 0;">
+            <Pane layoutX="366.0" prefHeight="399.0" prefWidth="366.0" style="-fx-background-color: #3C99DC; -fx-background-radius: 0 20 20 0;">
                <children>
                   <Label layoutX="35.0" layoutY="62.0" prefHeight="45.0" prefWidth="84.0" text="Github" textFill="WHITE">
                      <font>
