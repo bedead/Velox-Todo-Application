@@ -18,7 +18,7 @@ public class Main extends Application{
         Parent root = FXMLLoader.load(getClass().getResource("FXML/MainWindow.fxml"));
         
         // Root scene 
-        scene = new Scene(root,932,600);
+        scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         
         // setting stylesheet for pane

@@ -5,15 +5,16 @@
     -fx-background-radius: 15 15 0 0;
 }
 #button-style,#top-btn{
-    -fx-background-color:  #3C99DC;
+    -fx-background-color: #0077b6 ;
     -fx-text-alignment: center;
     -fx-text-fill: white;
 }
 #button-style{
     -fx-background-radius: 10px;
+    -fx-background-color: #3C99DC;
 }
 #top-btn:hover{
-    -fx-background-color: #0077b6;
+    -fx-background-color: #3C99DC;
 }
 #labels{
     -fx-text-align:center;
