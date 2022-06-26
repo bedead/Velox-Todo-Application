@@ -1,5 +1,5 @@
-import java.io.IOException;
 
+import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class App extends Application{
+public class Main extends Application{
     public static void main(String[] args) throws Exception {
         launch(args);
     }

@@ -1,3 +1,6 @@
+
+
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,7 +23,6 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -28,6 +30,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.json.simple.JSONArray;
@@ -85,14 +88,16 @@ public class MainController {
                     todo_desc.setId("labels");
 
                     HBox working_HBox = new HBox();
-                    Button Edit = new Button("Edit");
+                    Button Edit_title = new Button("Edit Title");
+                    Button Edit_desc = new Button("Edit Desc");
                     Button Remove = new Button("Remove");
                     Button Done = new Button("Done");
-                    Edit.setId("button-style");
+                    Edit_title.setId("button-style");
+                    Edit_desc.setId("button-style");
                     Remove.setId("button-style");
                     Done.setId("button-style");
 
-                    working_HBox.getChildren().addAll(Edit,Remove,Done);
+                    working_HBox.getChildren().addAll(Edit_title,Edit_desc,Remove,Done);
                     working_HBox.setSpacing(20);
 
                     working_VBox.getChildren().add(todo_desc);
@@ -102,10 +107,56 @@ public class MainController {
                     titledPane.setContent(working_VBox);
                     working_accordion.getPanes().add(titledPane);
 
-                    Edit.setOnAction(new EventHandler<ActionEvent>() {
+                    Edit_title.setOnAction(new EventHandler<ActionEvent>() {
                         public void handle(ActionEvent event){
                             // do something
                             //add bottom_status
+                            TextInputDialog tInputDialog = new TextInputDialog();
+                            tInputDialog.setHeaderText(null);
+                            tInputDialog.setTitle("Edit Title");
+                            tInputDialog.setContentText("Title:");
+        
+                            Optional<String> result = tInputDialog.showAndWait();
+                            
+                            result.ifPresent(title -> {
+                                jsonObject.put("Title", title);
+                                try{
+                                    FileWriter writer = new FileWriter("todo.json");
+                                    writer.write(jArray.toJSONString());
+                        
+                                    writer.flush();
+                                    writer.close();
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                }
+                                titledPane.setText(title);
+                            });
+                        }
+                    });
+                    Edit_desc.setOnAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent event){
+                            // do something
+                            //add bottom_status
+                            TextInputDialog tInputDialog = new TextInputDialog();
+                            tInputDialog.setHeaderText(null);
+                            tInputDialog.setTitle("Edit Description");
+                            tInputDialog.setContentText("Desc:");
+        
+                            Optional<String> result = tInputDialog.showAndWait();
+                            
+                            result.ifPresent(desc -> {
+                                jsonObject.put("Description", desc);
+                                try{
+                                    FileWriter writer = new FileWriter("todo.json");
+                                    writer.write(jArray.toJSONString());
+                        
+                                    writer.flush();
+                                    writer.close();
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                }
+                                todo_desc.setText(desc);
+                            });
                         }
                     });
                     Done.setOnAction(new EventHandler<ActionEvent>() {
@@ -208,14 +259,16 @@ public class MainController {
             todo_desc.setId("labels");
 
             HBox working_HBox = new HBox();
-            Button Edit = new Button("Edit");
+            Button Edit_title = new Button("Edit Title");
+            Button Edit_desc = new Button("Edit Desc");
             Button Remove = new Button("Remove");
             Button Done = new Button("Done");
-            Edit.setId("button-style");
+            Edit_title.setId("button-style");
+            Edit_desc.setId("button-style");
             Remove.setId("button-style");
             Done.setId("button-style");
 
-            working_HBox.getChildren().addAll(Edit,Remove,Done);
+            working_HBox.getChildren().addAll(Edit_title,Edit_desc,Remove,Done);
             working_HBox.setSpacing(20);
 
             working_VBox.getChildren().add(todo_desc);
@@ -225,12 +278,56 @@ public class MainController {
             titledPane.setContent(working_VBox);
             working_accordion.getPanes().add(titledPane);
 
-            Edit.setOnAction(new EventHandler<ActionEvent>() {
+            Edit_title.setOnAction(new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent event){
                     // do something
                     //add bottom_status
                     TextInputDialog tInputDialog = new TextInputDialog();
+                    tInputDialog.setHeaderText(null);
+                    tInputDialog.setTitle("Edit Title");
+                    tInputDialog.setContentText("Title:");
+
+                    Optional<String> result = tInputDialog.showAndWait();
                     
+                    result.ifPresent(title -> {
+                        todo.put("Title", title);
+                        try{
+                            FileWriter writer = new FileWriter("todo.json");
+                            writer.write(jArray.toJSONString());
+                
+                            writer.flush();
+                            writer.close();
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                        titledPane.setText(title);
+                    });
+                }
+            });
+            Edit_desc.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event){
+                    // do something
+                    //add bottom_status
+                    TextInputDialog tInputDialog = new TextInputDialog();
+                    tInputDialog.setHeaderText(null);
+                    tInputDialog.setTitle("Edit Description");
+                    tInputDialog.setContentText("Desc:");
+
+                    Optional<String> result = tInputDialog.showAndWait();
+                    
+                    result.ifPresent(desc -> {
+                        todo.put("Description", desc);
+                        try{
+                            FileWriter writer = new FileWriter("todo.json");
+                            writer.write(jArray.toJSONString());
+                
+                            writer.flush();
+                            writer.close();
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                        todo_desc.setText(desc);
+                    });
                 }
             });
             Done.setOnAction(new EventHandler<ActionEvent>() {
