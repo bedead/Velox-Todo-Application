@@ -12,20 +12,6 @@
 
 <img src="https://user-images.githubusercontent.com/89126855/175983609-614e6565-08e3-4e93-a1c6-239f38d3d1c5.png" alt="project-screenshot" width="400" height="400/">
 
-  
-  
-<h2>💻 Built with</h2>
-
-Technologies used in the project:
-
-*   Java
-*   JavaFX
-*   JSON
-
-<h2>🛡️ License:</h2>
-
-This project is licensed under the MIT License
-
 <h2>Made Using JavaFX and Scene Builder</h2>
 
 - `FXML`: folder for all the fxml files required
@@ -41,3 +27,16 @@ The workspace contains two folders by default, where:
 - `lib`: the folder to maintain dependencies
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+
+  
+<h2>💻 Built with</h2>
+
+Technologies used in the project:
+
+*   Java
+*   JavaFX
+*   JSON
+
+<h2>🛡️ License:</h2>
+
+This project is licensed under the MIT License
