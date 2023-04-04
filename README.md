@@ -6,11 +6,11 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://user-images.githubusercontent.com/89126855/175983548-12fd6803-026d-4278-a836-30306deafd5d.png" alt="project-screenshot" width="400" height="400/">
+<img src="https://user-images.githubusercontent.com/89126855/175983548-12fd6803-026d-4278-a836-30306deafd5d.png" alt="project-screenshot" width="400" height="200/">
 
-<img src="https://user-images.githubusercontent.com/89126855/175983567-40906380-771f-4c8e-ac46-322e7b5fbdad.png" alt="project-screenshot" width="400" height="400/">
+<img src="https://user-images.githubusercontent.com/89126855/175983567-40906380-771f-4c8e-ac46-322e7b5fbdad.png" alt="project-screenshot" width="400" height="200/">
 
-<img src="https://user-images.githubusercontent.com/89126855/175983609-614e6565-08e3-4e93-a1c6-239f38d3d1c5.png" alt="project-screenshot" width="400" height="400/">
+<img src="https://user-images.githubusercontent.com/89126855/175983609-614e6565-08e3-4e93-a1c6-239f38d3d1c5.png" alt="project-screenshot" width="400" height="200/">
 
 <h2>Made Using JavaFX and Scene Builder</h2>
 
